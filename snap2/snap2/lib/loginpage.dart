@@ -21,6 +21,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  //dev.log("This is login page");
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _isNotValidate = false;
@@ -43,11 +44,12 @@ class _SignInPageState extends State<SignInPage> {
         "email": emailController.text,
         "password": passwordController.text
       };
-      dev.log("my request body okay");
+      dev.log("request body \n"+reqBody.toString());
 
       var response = await http.post(Uri.parse(login),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(reqBody));
+      dev.log("response body \n"+response.body.toString());
 
       var jsonResponse = jsonDecode(response.body);
       if (jsonResponse['status']) {
@@ -110,6 +112,7 @@ class _SignInPageState extends State<SignInPage> {
                   ).p4().px24(),
                   GestureDetector(
                     onTap: () {
+                      dev.log("Login user Tapped");
                       loginUser();
                     },
                     child: HStack([
