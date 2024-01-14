@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
 //import 'applogo.dart';
 import 'loginPage.dart';
+import 'customer.register.dart';
 import 'package:http/http.dart' as http;
 import '../config.dart';
 
@@ -205,11 +206,16 @@ class _RegistrationState extends State<Registration> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              onPressed: () => {}, // Handle login functionality
+              onPressed: () => {
+                dev.log("Login Tapped"),
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SignInPage()))}, // Handle login functionality
               child: Text('Login'),
             ),
             TextButton(
-              onPressed: () => {}, // Handle sign in as customer functionality
+              onPressed: () => {dev.log("Cus Reg Tapped"),
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CRegistration()))}, // Handle sign in as customer functionality
               child: Text('Sign in as Customer'),
             ),
           ],

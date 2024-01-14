@@ -9,6 +9,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class Dashboard extends StatefulWidget {
   final token;
+  //final email;
   const Dashboard({@required this.token, Key? key}) : super(key: key);
 
   @override
@@ -21,6 +22,11 @@ class _DashboardState extends State<Dashboard> {
   TextEditingController _todoDesc = TextEditingController();
   TextEditingController _todoItemType = TextEditingController();
   TextEditingController _todoPrice = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _description = TextEditingController();
+  TextEditingController _itemType = TextEditingController();
+  TextEditingController _price = TextEditingController();
+
   List? items;
   @override
   void initState() {
@@ -34,25 +40,40 @@ class _DashboardState extends State<Dashboard> {
 
   void addTodo() async {
     dev.log("shop dashboard ");
-    if (_todoTitle.text.isNotEmpty && _todoDesc.text.isNotEmpty) {
+    dev.log("\n add item deatels > \n" +
+        _name.text +
+        "\n" +
+        _description.text +
+        "\n" +
+        _itemType.text +
+        "\n" +
+        _price.text +
+        "\n");
+    if (_name.text.isNotEmpty &&
+        _description.text.isNotEmpty &&
+        _itemType.text.isNotEmpty &&
+        _price.text.isNotEmpty) {
       var regBody = {
-        "userId": userId,
-        "title": _todoTitle.text,
-        "desc": _todoDesc.text
+        "name": _name.text,
+        "description": _description.text,
+        "itemType": _itemType.text,
+        "price": _price.text,
+        "shopId": "6598c19168c78132eaaaa675",
+        "shopName": "shop1"
+        //"userId": userId,
+        //"title": _todoTitle.text,
+        //"desc": _todoDesc.text
       };
       dev.log("this is reg body" + regBody.toString());
 
       dev.log(Uri.parse(addtodo).toString() + "this is url");
 
-
-
-      var response = await http.post(Uri.parse(addtodo),
+      var response = await http.post(Uri.parse(addItem),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(regBody));
       dev.log("this is body" + jsonEncode(regBody).toString());
 
       dev.log("this is response" + response.body.toString());
-      
 
       var jsonResponse = jsonDecode(response.body);
       dev.log("json response");
@@ -60,19 +81,19 @@ class _DashboardState extends State<Dashboard> {
 
       print(jsonResponse['status']);
 
-        if (jsonResponse['status']) {
-          _todoDesc.clear();
-          _todoTitle.clear();
-          Navigator.pop(context);
-          getTodoList(userId);
-        } else {
-          print("SomeThing Went Wrong");
-        }
+      if (jsonResponse['status']) {
+        _todoDesc.clear();
+        _todoTitle.clear();
+        Navigator.pop(context);
+        getTodoList(userId);
+      } else {
+        print("SomeThing Went Wrong");
+      }
     }
   }
 
   void getTodoList(userId) async {
-    var url = Uri.parse(getToDoList);
+    var url = Uri.parse(getItems);
     // show url
 
     url = url.replace(queryParameters: {
@@ -88,7 +109,6 @@ class _DashboardState extends State<Dashboard> {
 
     dev.log(regBody.toString());
 
-    
     // var response = await http.get(Uri.parse(getToDoList)).then((value) => {
     //       dev.log("this is value" + value.body.toString()),
     //     });
@@ -188,12 +208,20 @@ class _DashboardState extends State<Dashboard> {
                             ),
                             child: Card(
                               borderOnForeground: false,
-                              child: ListTile(
-                                leading: Icon(Icons.task),
-                                title: Text('${items![index]['title']}'),
-                                subtitle: Text('${items![index]['desc']}'),
-                                trailing: Icon(Icons.arrow_back),
+                              child: Text(
+                                '${items![index]['name']} \n ${items![index]['description']} \n ${items![index]['itemType']} \n ${items![index]['price']}',
+                                style: TextStyle(fontSize: 20),
                               ),
+                              /*ListTile(
+                                leading: Icon(Icons.task),
+                                title: Text('${items![index]['name']}'),
+                                subtitle: Text('${items![index]['description']}'),
+                                
+                                trailing: Icon(Icons.arrow_back),
+                              )*/
+                              // show all deatels received from server
+
+                              
                             ),
                           );
                         }),
@@ -220,9 +248,9 @@ class _DashboardState extends State<Dashboard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // text fields for name , description , item type , price
-                  
+
                   TextField(
-                    controller: _todoTitle,
+                    controller: _name,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         filled: true,
@@ -233,7 +261,7 @@ class _DashboardState extends State<Dashboard> {
                                 BorderRadius.all(Radius.circular(10.0)))),
                   ).p4().px8(),
                   TextField(
-                    controller: _todoDesc,
+                    controller: _description,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         filled: true,
@@ -244,7 +272,7 @@ class _DashboardState extends State<Dashboard> {
                                 BorderRadius.all(Radius.circular(10.0)))),
                   ).p4().px8(),
                   TextField(
-                    controller: _todoDesc,
+                    controller: _itemType,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         filled: true,
@@ -255,7 +283,7 @@ class _DashboardState extends State<Dashboard> {
                                 BorderRadius.all(Radius.circular(10.0)))),
                   ).p4().px8(),
                   TextField(
-                    controller: _todoDesc,
+                    controller: _price,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         filled: true,

@@ -33,8 +33,10 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.black,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: (token != null && JwtDecoder.isExpired(token) != false)
-            ? Dashboard(token: token)
-            : SignInPage());
+        home: SignInPage());
+        
+        // (token != null && JwtDecoder.isExpired(token) == false)
+        //     ? Dashboard(token: token)
+        //     : SignInPage());
   }
 }

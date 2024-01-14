@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:snap2/pages/shop.register.dart';
 import 'package:velocity_x/velocity_x.dart';
 //import 'applogo.dart';
 import 'loginPage.dart';
@@ -10,20 +11,19 @@ import '../config.dart';
 
 import 'dart:developer' as dev;
 
-class Registration extends StatefulWidget {
+class CRegistration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
 }
 
-class _RegistrationState extends State<Registration> {
-  TextEditingController ownerNameController = TextEditingController();
-  TextEditingController shopNameController = TextEditingController();
+class _RegistrationState extends State<CRegistration> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController longitudeController = TextEditingController();
   TextEditingController latitudeController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
   bool _isNotValidate = false;
 
@@ -31,14 +31,14 @@ class _RegistrationState extends State<Registration> {
     dev.log("email > " + emailController.text.toString());
     dev.log("password > " + passwordController.text.toString());
 
-    if (emailController.text.isNotEmpty && 
+    if (emailController.text.isNotEmpty &&
         passwordController.text.isNotEmpty &&
-        ownerNameController.text.isNotEmpty &&
-        shopNameController.text.isNotEmpty &&
         addressController.text.isNotEmpty &&
         phoneNumberController.text.isNotEmpty &&
         longitudeController.text.isNotEmpty &&
-        latitudeController.text.isNotEmpty
+        latitudeController.text.isNotEmpty 
+
+
         ) {
 
         var regBody = {
@@ -47,12 +47,12 @@ class _RegistrationState extends State<Registration> {
         };
 
         var shopBody = {
-          "ownerName": ownerNameController.text,
-          "shopName": shopNameController.text,
+          "Name": nameController.text,          
           "address": addressController.text,
           "phoneNumber": phoneNumberController.text,
           "longitude": longitudeController.text,
           "latitude": latitudeController.text,
+          "userName": emailController.text,
         };
 
 
@@ -100,22 +100,15 @@ class _RegistrationState extends State<Registration> {
             children: [
               //owner name
               TextField(
-                controller: ownerNameController,
+                controller: nameController,
                 decoration: InputDecoration(
-                  labelText: 'Owner Name',
-                  hintText: 'Enter Owner Name',
+                  labelText: 'Name',
+                  hintText: 'Name',
                   errorText: _isNotValidate ? 'Value Can\'t Be Empty' : null,
                 ),
               ),
-              // shop name
-              TextField(
-                controller: shopNameController,
-                decoration: InputDecoration(
-                  labelText: 'Shop Name',
-                  hintText: 'Enter Shop Name',
-                  errorText: _isNotValidate ? 'Value Can\'t Be Empty' : null,
-                ),
-              ),
+             
+              
               // address
               TextField(
                 controller: addressController,
@@ -131,6 +124,24 @@ class _RegistrationState extends State<Registration> {
                 decoration: InputDecoration(
                   labelText: 'Phone Number',
                   hintText: 'Enter Phone Number',
+                  errorText: _isNotValidate ? 'Value Can\'t Be Empty' : null,
+                ),
+              ),
+              // username
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'Enter Email',
+                  errorText: _isNotValidate ? 'Value Can\'t Be Empty' : null,
+                ),
+              ),
+              // password
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  hintText: 'Enter Password',
                   errorText: _isNotValidate ? 'Value Can\'t Be Empty' : null,
                 ),
               ),
@@ -178,11 +189,17 @@ class _RegistrationState extends State<Registration> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              onPressed: () => {}, // Handle login functionality
+              onPressed: () => {
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SignInPage()))
+              }, // Handle login functionality
               child: Text('Login'),
             ),
             TextButton(
-              onPressed: () => {}, // Handle sign in as customer functionality
+              onPressed: () => {
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Registration()))
+              }, // Handle sign in as customer functionality
               child: Text('Sign in as Customer'),
             ),
           ],

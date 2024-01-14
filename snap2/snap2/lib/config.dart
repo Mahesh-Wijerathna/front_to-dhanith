@@ -7,3 +7,10 @@ final getToDoList = url + 'getUserTodoList';
 final deleteTodo = url + 'deleteTodo';
 
 final addShop = url + 'createShop';
+
+
+final addItem = url + 'createItem';
+final getItems = url + 'getItemsInshop';
+
+
+
