@@ -19,6 +19,8 @@ class _DashboardState extends State<Dashboard> {
   late String userId;
   TextEditingController _todoTitle = TextEditingController();
   TextEditingController _todoDesc = TextEditingController();
+  TextEditingController _todoItemType = TextEditingController();
+  TextEditingController _todoPrice = TextEditingController();
   List? items;
   @override
   void initState() {
@@ -86,6 +88,7 @@ class _DashboardState extends State<Dashboard> {
 
     dev.log(regBody.toString());
 
+    
     // var response = await http.get(Uri.parse(getToDoList)).then((value) => {
     //       dev.log("this is value" + value.body.toString()),
     //     });
@@ -130,24 +133,24 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  child: Icon(
-                    Icons.list,
-                    size: 30.0,
-                  ),
-                  backgroundColor: Colors.white,
-                  radius: 30.0,
-                ),
-                SizedBox(height: 10.0),
-                Text(
-                  'ToDo with NodeJS + Mongodb',
-                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w700),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  '5 Task',
-                  style: TextStyle(fontSize: 20),
-                ),
+                // CircleAvatar(
+                //   child: Icon(
+                //     Icons.list,
+                //     size: 30.0,
+                //   ),
+                //   backgroundColor: Colors.white,
+                //   radius: 30.0,
+                // ),
+                //SizedBox(height: 10.0),
+                // Text(
+                //   'ToDo with NodeJS + Mongodb',
+                //   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w700),
+                // ),
+                // SizedBox(height: 8.0),
+                // Text(
+                //   '5 Task',
+                //   style: TextStyle(fontSize: 20),
+                // ),
               ],
             ),
           ),

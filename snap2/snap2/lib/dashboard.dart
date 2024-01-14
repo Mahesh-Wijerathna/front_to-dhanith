@@ -127,24 +127,24 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  child: Icon(
-                    Icons.list,
-                    size: 30.0,
-                  ),
-                  backgroundColor: Colors.white,
-                  radius: 30.0,
-                ),
-                SizedBox(height: 10.0),
-                Text(
-                  'ToDo with NodeJS + Mongodb',
-                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w700),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  '5 Task',
-                  style: TextStyle(fontSize: 20),
-                ),
+                // CircleAvatar(
+                //   child: Icon(
+                //     Icons.list,
+                //     size: 30.0,
+                //   ),
+                  //backgroundColor: Colors.white,
+                  //radius: 30.0,
+                //),
+                //SizedBox(height: 10.0),
+                // Text(
+                //   'ToDo with NodeJS + Mongodb',
+                //   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w700),
+                // ),
+                // SizedBox(height: 8.0),
+                // Text(
+                //   '5 Task',
+                //   style: TextStyle(fontSize: 20),
+                // ),
               ],
             ),
           ),
