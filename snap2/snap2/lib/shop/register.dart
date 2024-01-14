@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'applogo.dart';
-import 'loginPage.dart';
+import '../applogo.dart';
+import '../loginPage.dart';
 import 'package:http/http.dart' as http;
-import 'config.dart';
+import '../config.dart';
 
 import 'dart:developer' as dev;
 
@@ -16,12 +16,6 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  TextEditingController ownerNameController = TextEditingController();
-  TextEditingController shopNameController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController longitudeController = TextEditingController();
-  TextEditingController latitudeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -31,45 +25,19 @@ class _RegistrationState extends State<Registration> {
     dev.log("email > " + emailController.text.toString());
     dev.log("password > " + passwordController.text.toString());
 
-    if (emailController.text.isNotEmpty && 
-        passwordController.text.isNotEmpty &&
-        ownerNameController.text.isNotEmpty &&
-        shopNameController.text.isNotEmpty &&
-        addressController.text.isNotEmpty &&
-        phoneNumberController.text.isNotEmpty &&
-        longitudeController.text.isNotEmpty &&
-        latitudeController.text.isNotEmpty
-        ) {
-
-        var regBody = {
-          "email": emailController.text,
-          "password": passwordController.text
-        };
-
-        var shopBody = {
-          "ownerName": ownerNameController.text,
-          "shopName": shopNameController.text,
-          "address": addressController.text,
-          "phoneNumber": phoneNumberController.text,
-          "longitude": longitudeController.text,
-          "latitude": latitudeController.text,
-        };
-
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      var regBody = {
+        "email": emailController.text,
+        "password": passwordController.text
+      };
 
       dev.log(Uri.parse(registration).toString());  
       var response = await http.post(Uri.parse(registration),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(regBody));
-
-      var shopResponse = await http.post(Uri.parse(addShop),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode(shopBody));
-
-
       dev.log("request for registration sent successfully");
 
       var jsonResponse = jsonDecode(response.body);
-      var jsonShopResponse = jsonDecode(shopResponse.body);
       dev.log("response body > " + jsonResponse.toString());
 
       print(jsonResponse['status']);

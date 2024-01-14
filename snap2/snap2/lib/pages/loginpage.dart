@@ -1,20 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:snap2/dashboard.dart';
-//import 'package:snap2/shop/register.dart';
-//impoert dev
+import 'shop.dashboard.dart';
+
 import 'dart:developer' as dev;
 
-// import 'package:flutter_todo_app/registration.dart';
-// import registration page from correct folder
 
-import 'package:snap2/registration.dart';
+import 'shop.register.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'applogo.dart';
+import '../applogo.dart';
 import 'package:http/http.dart' as http;
-import 'config.dart';
+import '../config.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -31,7 +28,7 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     initSharedPref();
   }
@@ -46,17 +43,22 @@ class _SignInPageState extends State<SignInPage> {
         "email": emailController.text,
         "password": passwordController.text
       };
-      dev.log("request body \n" + reqBody.toString());
+      dev.log("\nrequest body >" + reqBody.toString());
 
       var response = await http.post(Uri.parse(login),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(reqBody));
-      dev.log("response body \n" + response.body.toString());
+      dev.log("\nresponse body > \n" + response.body.toString());
 
       var jsonResponse = jsonDecode(response.body);
       if (jsonResponse['status']) {
         var myToken = jsonResponse['token'];
+        var userType = jsonResponse['userType'];
         prefs.setString('token', myToken);
+        if(userType == 'shop')
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Dashboard(token: myToken)));
+        if(userType == 'customer')
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => Dashboard(token: myToken)));
       } else {
@@ -137,11 +139,15 @@ class _SignInPageState extends State<SignInPage> {
           child: Container(
               height: 25,
               color: Colors.lightBlue,
+              
               child: Center(
                   child: "Create a new Account..! Sign Up"
                       .text
                       .white
-                      .makeCentered())),
+                      .makeCentered()),
+                      
+                      ),
+                      
         ),
       ),
     );

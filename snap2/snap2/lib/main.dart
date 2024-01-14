@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:snap2/dashboard.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'loginPage.dart';
+import 'pages/loginPage.dart';
 import 'dart:developer' as dev;
 
 void main() async {
@@ -15,6 +15,8 @@ void main() async {
   ));
 }
 
+
+
 class MyApp extends StatelessWidget {
   final token;
   const MyApp({
@@ -25,14 +27,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.black,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: (token != null && JwtDecoder.isExpired(token) == false)
+        home: (token != null && JwtDecoder.isExpired(token) != false)
             ? Dashboard(token: token)
             : SignInPage());
   }
